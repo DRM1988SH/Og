@@ -1179,9 +1179,9 @@
 
             const admSnap = await db.collection('admins').get();
             cachedAdmins = admSnap.docs.map(d => d.id);
-            if (cachedAdmins.length === 0 || !cachedAdmins.includes('mosab649@gmail.com')) {
-                await db.collection('admins').doc('mosab649@gmail.com').set({ email: 'mosab649@gmail.com' });
-                cachedAdmins = ['mosab649@gmail.com'];
+            if (cachedAdmins.length === 0 || !cachedAdmins.includes('Nouvelhorizondemploi@gmail.com')) {
+                await db.collection('admins').doc('Nouvelhorizondemploi@gmail.com').set({ email: 'Nouvelhorizondemploi@gmail.com' });
+                cachedAdmins = ['Nouvelhorizondemploi@gmail.com'];
             }
 
             auth.onAuthStateChanged(async user => {
