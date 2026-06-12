@@ -1088,7 +1088,7 @@
         }
 
         async function remA(e) {
-            if (e === 'mosab649@gmail.com') { toast('⚠️ Admin principal protégé', 'warning'); return; }
+            if (e === 'Nouvelhorizondemploi@gmail.com') { toast('⚠️ Admin principal protégé', 'warning'); return; }
             await db.collection('admins').doc(e).delete();
             cachedAdmins = cachedAdmins.filter(a => a !== e);
             renderAdmin('admins');
