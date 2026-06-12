@@ -45,25 +45,93 @@
         }
         body.rtl { direction: rtl; }
         
-        /* Sidebar */
+        /* Sidebar - القائمة الجانبية الوحيدة */
         .sidebar {
-            position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: var(--wht); box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-            z-index: 2000; transition: left 0.3s ease; display: flex; flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: var(--wht);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
-        body.rtl .sidebar { left: auto; right: -280px; }
-        .sidebar.open { left: 0; }
-        body.rtl .sidebar.open { left: auto; right: 0; }
-        .sidebar-header { padding: 1.5rem; background: var(--p); color: white; text-align: center; }
-        .sidebar-header img { width: 70px; height: 70px; object-fit: contain; border-radius: 50%; background: white; padding: 5px; margin-bottom: 10px; }
-        .sidebar-nav { flex: 1; padding: 1rem 0; }
-        .sidebar-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: var(--tx); text-decoration: none; transition: 0.2s; font-weight: 500; }
-        .sidebar-nav a i { width: 24px; color: var(--p); }
-        .sidebar-nav a:hover { background: #e3f2fd; }
-        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1999; display: none; }
-        .overlay.active { display: block; }
-        .menu-toggle { background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--p); padding: 0.5rem; margin-right: 0.5rem; }
-        body.rtl .menu-toggle { margin-right: 0; margin-left: 0.5rem; }
+        body.rtl .sidebar {
+            left: auto;
+            right: -280px;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        body.rtl .sidebar.open {
+            left: auto;
+            right: 0;
+        }
+        .sidebar-header {
+            padding: 1.5rem;
+            background: var(--p);
+            color: white;
+            text-align: center;
+        }
+        .sidebar-header img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+        }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--tx);
+            text-decoration: none;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+        .sidebar-nav a i {
+            width: 24px;
+            color: var(--p);
+        }
+        .sidebar-nav a:hover {
+            background: #e3f2fd;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        .overlay.active {
+            display: block;
+        }
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--p);
+            padding: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        body.rtl .menu-toggle {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
         
         .disclaimer-bar {
             background: #fff3e0;
@@ -112,27 +180,11 @@
             padding: 2px;
             border: 1px solid var(--bdr);
         }
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--p);
+        .nav-actions {
+            display: flex;
+            gap: .4rem;
+            align-items: center;
         }
-        .nav-menu { display: flex; align-items: center; gap: .75rem; }
-        .nav-links { display: flex; list-style: none; gap: .2rem; }
-        .nav-links a {
-            padding: .4rem .7rem;
-            border-radius: 20px;
-            color: var(--tx);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: .8rem;
-            cursor: pointer;
-        }
-        .nav-links a:hover, .nav-links a.active { background: #e3f2fd; color: var(--p); }
-        .nav-actions { display: flex; gap: .4rem; align-items: center; }
         .btn {
             padding: .5rem 1rem;
             border-radius: 20px;
@@ -306,25 +358,20 @@
         .view-all { font-size: .8rem; color: var(--p); text-decoration: none; font-weight: 600; cursor: pointer; }
         .view-all:hover { text-decoration: underline; }
         
-        /* Editor styles - NEW */
+        /* Editor styles */
         .editor-toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; background: #f0f0f0; padding: 0.5rem; border-radius: 8px; }
         .editor-toolbar button { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: bold; }
         .form-textarea { min-height: 150px; resize: vertical; }
         
         @media(max-width:768px) {
-            .nav-toggle { display: block; }
-            .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0; background: var(--wht); flex-direction: column; padding: 1rem; box-shadow: var(--sh); gap: .5rem; }
-            .nav-menu.open { display: flex; }
-            .nav-links { flex-direction: column; width: 100%; }
-            .nav-actions { flex-direction: column; width: 100%; }
-            .social-btns { grid-template-columns: 1fr; }
             .hero h1 { font-size: 1.5rem; }
+            .nav-actions select, .nav-actions .btn-sm { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- القائمة الجانبية الوحيدة -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <img id="sidebarLogo" src="" alt="Logo" style="display: none;">
@@ -357,31 +404,16 @@
                     <span>Nouvel horizon d'emploi</span>
                 </a>
             </div>
-            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
-            <div class="nav-menu" id="navMenu">
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Accueil</a></li>
-                    <li><a href="#register">Inscription</a></li>
-                    <li><a href="#jobs">Emplois</a></li>
-                    <li><a href="#training">Formations</a></li>
-                    <li><a href="#videos">Vidéos</a></li>
-                    <li><a href="#posters">Affiches</a></li>
-                    <li><a href="#volunteering">Bénévolat</a></li>
-                    <li><a href="#legal">Droit</a></li>
-                    <li><a href="#forum-articles">Articles</a></li>
-                    <li><a href="#admin" id="adminLink" class="hidden">🔧 Admin</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <select id="langSwitch" style="padding:.3rem;border-radius:6px;border:1px solid #ccc;font-size:.8rem;">
-                        <option value="fr">🇫🇷 FR</option>
-                        <option value="en">🇬🇧 EN</option>
-                        <option value="ar">🇸🇦 AR</option>
-                    </select>
-                    <button class="btn btn-outline btn-sm" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Connexion</button>
-                    <button class="btn btn-primary btn-sm" id="btnRegister"><i class="fas fa-user-plus"></i> Inscription</button>
-                    <span id="userBadge" class="hidden" style="font-weight:600;color:var(--p);font-size:.8rem;"></span>
-                    <button class="btn btn-outline btn-sm hidden" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
-                </div>
+            <div class="nav-actions">
+                <select id="langSwitch" style="padding:.3rem;border-radius:6px;border:1px solid #ccc;font-size:.8rem;">
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="ar">🇸🇦 AR</option>
+                </select>
+                <button class="btn btn-outline btn-sm" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Connexion</button>
+                <button class="btn btn-primary btn-sm" id="btnRegister"><i class="fas fa-user-plus"></i> Inscription</button>
+                <span id="userBadge" class="hidden" style="font-weight:600;color:var(--p);font-size:.8rem;"></span>
+                <button class="btn btn-outline btn-sm hidden" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
             </div>
         </div>
     </nav>
@@ -517,7 +549,7 @@
             </div>
         </section>
 
-        <!-- FORUM / ARTICLES - IMPROVED VERSION -->
+        <!-- FORUM / ARTICLES -->
         <section id="forum-articles" class="section hidden">
             <div class="container">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
@@ -525,7 +557,6 @@
                     <button class="btn btn-primary btn-sm" onclick="openArticleEditor()"><i class="fas fa-plus"></i> Écrire un article</button>
                 </div>
                 
-                <!-- Article Editor Form -->
                 <div id="articleEditor" class="hidden" style="background: white; padding: 1rem; border-radius: var(--r); margin-bottom: 2rem;">
                     <h3 id="editorTitle">✍️ Rédiger un article</h3>
                     <div class="editor-toolbar">
@@ -602,48 +633,15 @@
         let cachedJobs = [];
         let cachedVideos = [];
         let cachedPosters = [];
-        let cachedArticles = [];      // NEW: for articles
+        let cachedArticles = [];
         let cachedAdmins = [];
         let currentLang = 'fr';
 
         // Translations
         const translations = {
-            fr: {
-                heroTitle: "Bienvenue sur Nouvel horizon d'emploi",
-                heroDesc: "Plateforme dédiée à l'insertion professionnelle des réfugiés.",
-                heroCreateBtn: "Créer un compte",
-                heroJobsBtn: "Voir les offres",
-                latestArticlesTitle: "📝 Derniers articles",
-                disclaimer: "⚠️ Nous ne soutenons pas l'immigration illégale",
-                writeArticle: "Écrire un article",
-                edit: "Modifier",
-                delete: "Supprimer",
-                readMore: "Lire plus"
-            },
-            en: {
-                heroTitle: "Welcome to New Employment Horizon",
-                heroDesc: "Platform for refugee professional integration.",
-                heroCreateBtn: "Create Account",
-                heroJobsBtn: "View Jobs",
-                latestArticlesTitle: "📝 Latest Articles",
-                disclaimer: "⚠️ We do not support illegal immigration",
-                writeArticle: "Write Article",
-                edit: "Edit",
-                delete: "Delete",
-                readMore: "Read more"
-            },
-            ar: {
-                heroTitle: "مرحباً في أفق التوظيف الجديد",
-                heroDesc: "منصة لإدماج اللاجئين مهنياً.",
-                heroCreateBtn: "إنشاء حساب",
-                heroJobsBtn: "عرض الوظائف",
-                latestArticlesTitle: "📝 أحدث المقالات",
-                disclaimer: "⚠️ نحن لا ندعم الهجرة غير الشرعية",
-                writeArticle: "كتابة مقال",
-                edit: "تعديل",
-                delete: "حذف",
-                readMore: "اقرأ أكثر"
-            }
+            fr: { heroTitle: "Bienvenue sur Nouvel horizon d'emploi", heroDesc: "Plateforme dédiée à l'insertion professionnelle des réfugiés.", heroCreateBtn: "Créer un compte", heroJobsBtn: "Voir les offres", latestArticlesTitle: "📝 Derniers articles", disclaimer: "⚠️ Nous ne soutenons pas l'immigration illégale", writeArticle: "Écrire un article", edit: "Modifier", delete: "Supprimer", readMore: "Lire plus" },
+            en: { heroTitle: "Welcome to New Employment Horizon", heroDesc: "Platform for refugee professional integration.", heroCreateBtn: "Create Account", heroJobsBtn: "View Jobs", latestArticlesTitle: "📝 Latest Articles", disclaimer: "⚠️ We do not support illegal immigration", writeArticle: "Write Article", edit: "Edit", delete: "Delete", readMore: "Read more" },
+            ar: { heroTitle: "مرحباً في أفق التوظيف الجديد", heroDesc: "منصة لإدماج اللاجئين مهنياً.", heroCreateBtn: "إنشاء حساب", heroJobsBtn: "عرض الوظائف", latestArticlesTitle: "📝 أحدث المقالات", disclaimer: "⚠️ نحن لا ندعم الهجرة غير الشرعية", writeArticle: "كتابة مقال", edit: "تعديل", delete: "حذف", readMore: "اقرأ أكثر" }
         };
 
         function updateUILanguage() {
@@ -685,7 +683,6 @@
             document.getElementById('btnLogin').classList.toggle('hidden', l);
             document.getElementById('btnRegister').classList.toggle('hidden', l);
             document.getElementById('btnLogout').classList.toggle('hidden', !l);
-            document.getElementById('adminLink').classList.toggle('hidden', !a);
             document.getElementById('adminLinkSidebar').classList.toggle('hidden', !a);
             let b = document.getElementById('userBadge');
             if (l) { b.classList.remove('hidden'); b.textContent = '👤 ' + (currentUser.name || currentUser.email); }
@@ -890,7 +887,7 @@
             toast('✅ Inscription bénévole : ' + o);
         }
 
-        // ========== ARTICLES FUNCTIONS (IMPROVED) ==========
+        // ========== ARTICLES FUNCTIONS ==========
         async function uploadArticleImage() {
             if (!isLoggedIn()) return toast('Connectez-vous', 'warning');
             let input = document.createElement('input');
@@ -1087,17 +1084,17 @@
                 ].map(s => '<div class="card"><div class="stat-num">' + s.n + '</div><div>' + s.l + '</div></div>').join('') + '</div>';
             } else if (tab === 'users') {
                 let snap = await db.collection('users').get();
-                c.innerHTML = `<table><tr><th>Nom</th><th>Email</th><th>Action</th></tr>${snap.docs.map(d => `<tr><td>${d.data().name || '-'}</td><td>${d.data().email}</td><td><button class="btn btn-danger btn-sm" onclick="delU('${d.id}')">🗑️</button></td></tr>`).join('')}对这些`;
+                c.innerHTML = `<table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Nom</th><th>Email</th><th>Action</th></tr>${snap.docs.map(d => `<tr><td>${d.data().name || '-'}</td><td>${d.data().email}</td><td><button class="btn btn-danger btn-sm" onclick="delU('${d.id}')">🗑️</button></td></tr>`).join('')}</table>`;
             } else if (tab === 'jobs-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addJ()" style="margin-bottom:.75rem;">+ Offre</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Ville</th><th>Action</th></tr>' + cachedJobs.map(j => `<tr><td>${j.title}</td><td>${j.city}</td><td><button class="btn btn-danger btn-sm" onclick="delJ(${j.id})">🗑️</button></td></tr>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addJ()" style="margin-bottom:.75rem;">+ Offre</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Ville</th><th>Action</th></tr>' + cachedJobs.map(j => `<tr><td>${j.title}${j.city}<button class="btn btn-danger btn-sm" onclick="delJ(${j.id})">🗑️</button>`).join('') + '</table>';
             } else if (tab === 'videos-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerVideoUpload()" style="margin-bottom:.75rem;">+ Vidéo (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th></tr>' + cachedVideos.map(v => `<tr><td>${v.title}</td><td><button class="btn btn-danger btn-sm" onclick="deleteVideo('${v.id}')">🗑️</button></td></tr>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerVideoUpload()" style="margin-bottom:.75rem;">+ Vidéo (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><table><th>Titre</th><th>Action</th></tr>' + cachedVideos.map(v => `<tr><td>${v.title} \n<button class="btn btn-danger btn-sm" onclick="deleteVideo('${v.id}')">🗑️</button>`).join('') + '</table>';
             } else if (tab === 'posters-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerPosterUpload()" style="margin-bottom:.75rem;">+ Affiche (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th></tr>' + cachedPosters.map(p => `<tr><td>${p.title}</td><td><button class="btn btn-danger btn-sm" onclick="deletePoster('${p.id}')">🗑️</button></td></tr>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerPosterUpload()" style="margin-bottom:.75rem;">+ Affiche (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th></tr>' + cachedPosters.map(p => `<tr><td>${p.title} \n<button class="btn btn-danger btn-sm" onclick="deletePoster('${p.id}')">🗑️</button>`).join('') + '</table>';
             } else if (tab === 'articles-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addFakeArticle()" style="margin-bottom:.75rem;">+ Article test</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr>' + cachedArticles.map(a => `<tr><td>${a.title}</td><td>${a.author}</td><td><button class="btn btn-danger btn-sm" onclick="deleteArticle('${a.id}')">🗑️</button></td></tr>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addFakeArticle()" style="margin-bottom:.75rem;">+ Article test</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr>' + cachedArticles.map(a => `<tr><td>${a.title}${a.author}<button class="btn btn-danger btn-sm" onclick="deleteArticle('${a.id}')">🗑️</button>`).join('') + '</table>';
             } else if (tab === 'admins') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addA()" style="margin-bottom:.75rem;">+ Admin</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Email</th><th>Action</th></tr>' + cachedAdmins.map(a => `<tr><td>${a}</td><td>${a !== 'mosab649@gmail.com' ? '<button class="btn btn-danger btn-sm" onclick="remA(\'' + a + '\')">🗑️</button>' : '<span class="badge badge-blue">Principal</span>'}</td></tr>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addA()" style="margin-bottom:.75rem;">+ Admin</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Email</th><th>Action</th></tr>' + cachedAdmins.map(a => `<tr><td>${a}${a !== 'mosab649@gmail.com' ? '<button class="btn btn-danger btn-sm" onclick="remA(\'' + a + '\')">🗑️</button>' : '<span class="badge badge-blue">Principal</span>'}`).join('') + '</table>';
             } else if (tab === 'settings') {
                 let doc = await db.collection('settings').doc('logo').get();
                 let logoUrl = doc.exists ? doc.data().url : '';
@@ -1272,7 +1269,6 @@
             document.getElementById('langSwitch').addEventListener('change', (e) => { currentLang = e.target.value; updateUILanguage(); });
             document.getElementById('menuToggle').addEventListener('click', openSidebar);
             document.getElementById('overlay').addEventListener('click', closeSidebar);
-            document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navMenu').classList.toggle('open'));
             document.getElementById('btnLogin').addEventListener('click', showLogin);
             document.getElementById('btnRegister').addEventListener('click', () => showSection('register'));
             document.getElementById('btnLogout').addEventListener('click', logout);
@@ -1298,8 +1294,8 @@
             document.getElementById('jobCity').addEventListener('change', renderJobs);
             document.getElementById('jobContract').addEventListener('change', renderJobs);
 
-            // Navigation links
-            document.querySelectorAll('.sidebar-nav a, .nav-links a').forEach(link => {
+            // Navigation links (sidebar only)
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     let href = link.getAttribute('href');
