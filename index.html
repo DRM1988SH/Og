@@ -44,95 +44,6 @@
             line-height: 1.6;
         }
         body.rtl { direction: rtl; }
-        
-        /* Sidebar - القائمة الجانبية الوحيدة */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100%;
-            background: var(--wht);
-            box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-            z-index: 2000;
-            transition: left 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        body.rtl .sidebar {
-            left: auto;
-            right: -280px;
-        }
-        .sidebar.open {
-            left: 0;
-        }
-        body.rtl .sidebar.open {
-            left: auto;
-            right: 0;
-        }
-        .sidebar-header {
-            padding: 1.5rem;
-            background: var(--p);
-            color: white;
-            text-align: center;
-        }
-        .sidebar-header img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            border-radius: 50%;
-            background: white;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .sidebar-nav {
-            flex: 1;
-            padding: 1rem 0;
-        }
-        .sidebar-nav a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: var(--tx);
-            text-decoration: none;
-            transition: 0.2s;
-            font-weight: 500;
-        }
-        .sidebar-nav a i {
-            width: 24px;
-            color: var(--p);
-        }
-        .sidebar-nav a:hover {
-            background: #e3f2fd;
-        }
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1999;
-            display: none;
-        }
-        .overlay.active {
-            display: block;
-        }
-        .menu-toggle {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--p);
-            padding: 0.5rem;
-            margin-right: 0.5rem;
-        }
-        body.rtl .menu-toggle {
-            margin-right: 0;
-            margin-left: 0.5rem;
-        }
-        
         .disclaimer-bar {
             background: #fff3e0;
             padding: .4rem 1rem;
@@ -180,11 +91,27 @@
             padding: 2px;
             border: 1px solid var(--bdr);
         }
-        .nav-actions {
-            display: flex;
-            gap: .4rem;
-            align-items: center;
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--p);
         }
+        .nav-menu { display: flex; align-items: center; gap: .75rem; }
+        .nav-links { display: flex; list-style: none; gap: .2rem; }
+        .nav-links a {
+            padding: .4rem .7rem;
+            border-radius: 20px;
+            color: var(--tx);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: .8rem;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active { background: #e3f2fd; color: var(--p); }
+        .nav-actions { display: flex; gap: .4rem; align-items: center; }
         .btn {
             padding: .5rem 1rem;
             border-radius: 20px;
@@ -358,62 +285,58 @@
         .view-all { font-size: .8rem; color: var(--p); text-decoration: none; font-weight: 600; cursor: pointer; }
         .view-all:hover { text-decoration: underline; }
         
-        /* Editor styles */
+        /* NEW: Editor styles */
         .editor-toolbar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; background: #f0f0f0; padding: 0.5rem; border-radius: 8px; }
         .editor-toolbar button { background: white; border: 1px solid #ccc; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: bold; }
         .form-textarea { min-height: 150px; resize: vertical; }
         
         @media(max-width:768px) {
+            .nav-toggle { display: block; }
+            .nav-menu { display: none; position: absolute; top: 56px; left: 0; right: 0; background: var(--wht); flex-direction: column; padding: 1rem; box-shadow: var(--sh); gap: .5rem; }
+            .nav-menu.open { display: flex; }
+            .nav-links { flex-direction: column; width: 100%; }
+            .nav-actions { flex-direction: column; width: 100%; }
+            .social-btns { grid-template-columns: 1fr; }
             .hero h1 { font-size: 1.5rem; }
-            .nav-actions select, .nav-actions .btn-sm { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية الوحيدة -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <img id="sidebarLogo" src="" alt="Logo" style="display: none;">
-            <h3>Nouvel horizon</h3>
-        </div>
-        <div class="sidebar-nav">
-            <a href="#home"><i class="fas fa-home"></i> Accueil</a>
-            <a href="#register"><i class="fas fa-user-plus"></i> Inscription</a>
-            <a href="#jobs"><i class="fas fa-briefcase"></i> Emplois</a>
-            <a href="#training"><i class="fas fa-graduation-cap"></i> Formations</a>
-            <a href="#videos"><i class="fas fa-video"></i> Vidéos</a>
-            <a href="#posters"><i class="fas fa-image"></i> Affiches</a>
-            <a href="#volunteering"><i class="fas fa-hands-helping"></i> Bénévolat</a>
-            <a href="#legal"><i class="fas fa-balance-scale"></i> Droit</a>
-            <a href="#forum-articles"><i class="fas fa-newspaper"></i> Articles</a>
-            <a href="#admin" id="adminLinkSidebar" class="hidden"><i class="fas fa-cog"></i> Admin</a>
-        </div>
-    </div>
-    <div class="overlay" id="overlay"></div>
-
     <div class="disclaimer-bar">⚠️ Nous ne soutenons pas l'immigration illégale - We do not support illegal immigration - نحن لا ندعم الهجرة غير الشرعية</div>
 
     <nav class="navbar">
         <div class="nav-inner">
-            <div style="display: flex; align-items: center;">
-                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-                <a href="#home" class="nav-brand">
-                    <img id="navLogo" class="nav-logo hidden" src="" alt="Logo" style="display:none;">
-                    <i id="navIcon" class="fas fa-globe-europe"></i>
-                    <span>Nouvel horizon d'emploi</span>
-                </a>
-            </div>
-            <div class="nav-actions">
-                <select id="langSwitch" style="padding:.3rem;border-radius:6px;border:1px solid #ccc;font-size:.8rem;">
-                    <option value="fr">🇫🇷 FR</option>
-                    <option value="en">🇬🇧 EN</option>
-                    <option value="ar">🇸🇦 AR</option>
-                </select>
-                <button class="btn btn-outline btn-sm" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Connexion</button>
-                <button class="btn btn-primary btn-sm" id="btnRegister"><i class="fas fa-user-plus"></i> Inscription</button>
-                <span id="userBadge" class="hidden" style="font-weight:600;color:var(--p);font-size:.8rem;"></span>
-                <button class="btn btn-outline btn-sm hidden" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+            <a href="#home" class="nav-brand">
+                <img id="navLogo" class="nav-logo hidden" src="" alt="Logo" style="display:none;">
+                <i id="navIcon" class="fas fa-globe-europe"></i>
+                <span>Nouvel horizon d'emploi</span>
+            </a>
+            <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Accueil</a></li>
+                    <li><a href="#register">Inscription</a></li>
+                    <li><a href="#jobs">Emplois</a></li>
+                    <li><a href="#training">Formations</a></li>
+                    <li><a href="#videos">Vidéos</a></li>
+                    <li><a href="#posters">Affiches</a></li>
+                    <li><a href="#volunteering">Bénévolat</a></li>
+                    <li><a href="#legal">Droit</a></li>
+                    <li><a href="#forum-articles">Articles</a></li>
+                    <li><a href="#admin" id="adminLink" class="hidden">🔧 Admin</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <select id="langSwitch" style="padding:.3rem;border-radius:6px;border:1px solid #ccc;font-size:.8rem;">
+                        <option value="fr">🇫🇷 FR</option>
+                        <option value="en">🇬🇧 EN</option>
+                        <option value="ar">🇸🇦 AR</option>
+                    </select>
+                    <button class="btn btn-outline btn-sm" id="btnLogin"><i class="fas fa-sign-in-alt"></i> Connexion</button>
+                    <button class="btn btn-primary btn-sm" id="btnRegister"><i class="fas fa-user-plus"></i> Inscription</button>
+                    <span id="userBadge" class="hidden" style="font-weight:600;color:var(--p);font-size:.8rem;"></span>
+                    <button class="btn btn-outline btn-sm hidden" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -549,7 +472,7 @@
             </div>
         </section>
 
-        <!-- FORUM / ARTICLES -->
+        <!-- FORUM / ARTICLES - IMPROVED WITH EDIT & IMAGES -->
         <section id="forum-articles" class="section hidden">
             <div class="container">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
@@ -557,6 +480,7 @@
                     <button class="btn btn-primary btn-sm" onclick="openArticleEditor()"><i class="fas fa-plus"></i> Écrire un article</button>
                 </div>
                 
+                <!-- Article Editor Form -->
                 <div id="articleEditor" class="hidden" style="background: white; padding: 1rem; border-radius: var(--r); margin-bottom: 2rem;">
                     <h3 id="editorTitle">✍️ Rédiger un article</h3>
                     <div class="editor-toolbar">
@@ -616,7 +540,7 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <script>
-        // Firebase Config
+        // FIREBASE
         firebase.initializeApp({
             apiKey: "AIzaSyB2TlPdeABj2DFzh8lSb0vpTQuCaBlqfvA",
             authDomain: "organisation-d97e7.firebaseapp.com",
@@ -629,38 +553,37 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
 
-        let currentUser = null;
         let cachedJobs = [];
         let cachedVideos = [];
         let cachedPosters = [];
         let cachedArticles = [];
         let cachedAdmins = [];
+        let currentUser = null;
         let currentLang = 'fr';
 
         // Translations
         const translations = {
-            fr: { heroTitle: "Bienvenue sur Nouvel horizon d'emploi", heroDesc: "Plateforme dédiée à l'insertion professionnelle des réfugiés.", heroCreateBtn: "Créer un compte", heroJobsBtn: "Voir les offres", latestArticlesTitle: "📝 Derniers articles", disclaimer: "⚠️ Nous ne soutenons pas l'immigration illégale", writeArticle: "Écrire un article", edit: "Modifier", delete: "Supprimer", readMore: "Lire plus" },
-            en: { heroTitle: "Welcome to New Employment Horizon", heroDesc: "Platform for refugee professional integration.", heroCreateBtn: "Create Account", heroJobsBtn: "View Jobs", latestArticlesTitle: "📝 Latest Articles", disclaimer: "⚠️ We do not support illegal immigration", writeArticle: "Write Article", edit: "Edit", delete: "Delete", readMore: "Read more" },
-            ar: { heroTitle: "مرحباً في أفق التوظيف الجديد", heroDesc: "منصة لإدماج اللاجئين مهنياً.", heroCreateBtn: "إنشاء حساب", heroJobsBtn: "عرض الوظائف", latestArticlesTitle: "📝 أحدث المقالات", disclaimer: "⚠️ نحن لا ندعم الهجرة غير الشرعية", writeArticle: "كتابة مقال", edit: "تعديل", delete: "حذف", readMore: "اقرأ أكثر" }
+            fr: { writeArticle: "Écrire un article", edit: "Modifier", delete: "Supprimer", readMore: "Lire plus", insertImage: "Insérer image", publish: "Publier", cancel: "Annuler", editTitle: "Modifier l'article", newTitle: "Rédiger un article" },
+            en: { writeArticle: "Write Article", edit: "Edit", delete: "Delete", readMore: "Read more", insertImage: "Insert image", publish: "Publish", cancel: "Cancel", editTitle: "Edit Article", newTitle: "Write Article" },
+            ar: { writeArticle: "كتابة مقال", edit: "تعديل", delete: "حذف", readMore: "اقرأ أكثر", insertImage: "إدراج صورة", publish: "نشر", cancel: "إلغاء", editTitle: "تعديل المقال", newTitle: "كتابة مقال" }
         };
 
         function updateUILanguage() {
             let t = translations[currentLang];
             if (t) {
-                document.getElementById('heroTitle').innerText = t.heroTitle;
-                document.getElementById('heroDesc').innerText = t.heroDesc;
-                document.getElementById('heroCreateBtn').innerText = t.heroCreateBtn;
-                document.getElementById('heroJobsBtn').innerText = t.heroJobsBtn;
-                document.getElementById('latestArticlesTitle').innerText = t.latestArticlesTitle;
-                document.getElementById('disclaimerText').innerText = t.disclaimer;
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    let key = el.getAttribute('data-key');
+                    if (t[key]) el.innerText = t[key];
+                });
             }
             document.body.classList.toggle('rtl', currentLang === 'ar');
         }
 
-        function toast(msg, type = 'success') {
-            let c = document.getElementById('toastContainer');
-            let t = document.createElement('div');
-            t.className = `toast toast-${type}`;
+        function toast(msg, type) {
+            type = type || 'success';
+            const c = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast toast-' + type;
             t.textContent = msg;
             c.appendChild(t);
             setTimeout(() => t.remove(), 3000);
@@ -668,9 +591,15 @@
 
         function showSection(id) {
             document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            closeSidebar();
+            const s = document.getElementById(id);
+            if (s) {
+                s.classList.remove('hidden');
+                window.scrollTo({ top: s.offsetTop - 80, behavior: 'smooth' });
+            }
+            document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+            const al = document.querySelector('.nav-links a[href="#' + id + '"]');
+            if (al) al.classList.add('active');
+            document.getElementById('navMenu').classList.remove('open');
             if (id === 'admin') renderAdmin('dashboard');
             if (id === 'forum-articles') renderArticles();
         }
@@ -679,40 +608,46 @@
         function isAdmin() { return currentUser && cachedAdmins.includes(currentUser.email); }
 
         function updateUI() {
-            let l = isLoggedIn(), a = isAdmin();
+            const l = isLoggedIn(), a = isAdmin();
             document.getElementById('btnLogin').classList.toggle('hidden', l);
             document.getElementById('btnRegister').classList.toggle('hidden', l);
             document.getElementById('btnLogout').classList.toggle('hidden', !l);
-            document.getElementById('adminLinkSidebar').classList.toggle('hidden', !a);
-            let b = document.getElementById('userBadge');
-            if (l) { b.classList.remove('hidden'); b.textContent = '👤 ' + (currentUser.name || currentUser.email); }
+            document.getElementById('adminLink').classList.toggle('hidden', !a);
+            const b = document.getElementById('userBadge');
+            if (l) { b.classList.remove('hidden'); b.textContent = '👤 ' + currentUser.name; }
             else b.classList.add('hidden');
         }
 
         // AUTH
         async function registerEmail(n, e, p, p2) {
-            if (p !== p2) return toast('❌ Mots de passe différents', 'error');
+            if (p !== p2) { toast('❌ Les mots de passe ne correspondent pas', 'error'); return; }
+            if (p.length < 6) { toast('❌ 6 caractères minimum', 'error'); return; }
             try {
                 const cred = await auth.createUserWithEmailAndPassword(e, p);
-                currentUser = { id: cred.user.uid, name: n, email: e, createdAt: new Date().toISOString() };
+                currentUser = { id: cred.user.uid, name: n, email: e, provider: 'email', createdAt: new Date().toISOString() };
                 await db.collection('users').doc(cred.user.uid).set(currentUser);
                 updateUI();
                 toast('✅ Compte créé avec succès !');
                 showSection('profile');
-            } catch (err) { toast('❌ ' + err.message, 'error'); }
+            } catch (err) {
+                toast('❌ ' + (err.code === 'auth/email-already-in-use' ? 'Email déjà utilisé' : err.message), 'error');
+            }
         }
 
         async function showLogin() {
-            let e = prompt('📧 Email :'); if (!e) return;
-            let p = prompt('🔑 Mot de passe :'); if (!p) return;
+            const e = prompt('📧 Email :');
+            if (!e) return;
+            const p = prompt('🔑 Mot de passe :');
+            if (!p) return;
             try {
                 const cred = await auth.signInWithEmailAndPassword(e, p);
                 const doc = await db.collection('users').doc(cred.user.uid).get();
                 currentUser = doc.exists ? doc.data() : { id: cred.user.uid, name: e, email: e };
                 updateUI();
                 toast('✅ Connecté avec succès !');
-                showSection('jobs');
-            } catch (err) { toast('❌ Email ou mot de passe incorrect', 'error'); }
+            } catch (err) {
+                toast('❌ Email ou mot de passe incorrect', 'error');
+            }
         }
 
         async function logout() {
@@ -727,7 +662,9 @@
             const p = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(p).then(async r => {
                 currentUser = { id: r.user.uid, name: r.user.displayName, email: r.user.email, provider: 'google' };
-                if (!(await db.collection('users').doc(r.user.uid).get()).exists) await db.collection('users').doc(r.user.uid).set(currentUser);
+                if (!(await db.collection('users').doc(r.user.uid).get()).exists) {
+                    await db.collection('users').doc(r.user.uid).set(currentUser);
+                }
                 updateUI();
                 toast('✅ Connecté avec succès !');
                 showSection('profile');
@@ -738,7 +675,9 @@
             const p = new firebase.auth.FacebookAuthProvider();
             auth.signInWithPopup(p).then(async r => {
                 currentUser = { id: r.user.uid, name: r.user.displayName, email: r.user.email, provider: 'facebook' };
-                if (!(await db.collection('users').doc(r.user.uid).get()).exists) await db.collection('users').doc(r.user.uid).set(currentUser);
+                if (!(await db.collection('users').doc(r.user.uid).get()).exists) {
+                    await db.collection('users').doc(r.user.uid).set(currentUser);
+                }
                 updateUI();
                 toast('✅ Connecté avec succès !');
                 showSection('profile');
@@ -746,8 +685,10 @@
         }
 
         function registerPhone() {
-            let ph = prompt('📱 Téléphone (+33) :'); if (!ph) return;
-            let nm = prompt('👤 Nom complet :'); if (!nm) return;
+            const ph = prompt('📱 Téléphone (+33) :');
+            if (!ph) return;
+            const nm = prompt('👤 Nom complet :');
+            if (!nm) return;
             currentUser = { id: 'phone_' + Date.now(), name: nm, email: ph, provider: 'phone' };
             db.collection('users').doc(currentUser.id).set(currentUser);
             updateUI();
@@ -767,30 +708,33 @@
             showSection('jobs');
         }
 
-        // JOBS
-        async function renderJobs() {
+        // RENDER JOBS
+        function renderJobs() {
+            const c = document.getElementById('jobsList');
+            if (!c) return;
             let j = [...cachedJobs];
-            let cf = document.getElementById('jobCity').value;
-            let kf = document.getElementById('jobContract').value;
-            let sf = document.getElementById('jobSearch').value.toLowerCase();
+            const cf = document.getElementById('jobCity').value;
+            const kf = document.getElementById('jobContract').value;
+            const sf = document.getElementById('jobSearch').value.toLowerCase();
             if (cf) j = j.filter(x => x.city === cf);
             if (kf) j = j.filter(x => x.contract === kf);
             if (sf) j = j.filter(x => x.title.toLowerCase().includes(sf));
-            let c = document.getElementById('jobsList');
             if (!j.length) { c.innerHTML = '<p class="loading">Aucune offre trouvée.</p>'; return; }
-            c.innerHTML = j.map(x => `<div class="job-card"><h4>${x.title}</h4><span class="badge badge-blue">📍 ${x.city}</span> <span class="badge badge-green">📄 ${x.contract}</span><p style="margin:.4rem 0;font-size:.85rem;">${x.desc || ''}</p><small>Publié le : ${x.date}</small><br><button class="btn btn-primary btn-sm" style="margin-top:.4rem;" onclick="applyJob(${x.id})">Postuler</button></div>`).join('');
+            c.innerHTML = j.map(x => '<div class="job-card"><h4>' + x.title + '</h4><span class="badge badge-blue">📍 ' + x.city + '</span> <span class="badge badge-green">📄 ' + x.contract + '</span><p style="margin:.4rem 0;font-size:.85rem;">' + (x.desc || '') + '</p><small>Publié le : ' + x.date + '</small><br><button class="btn btn-primary btn-sm" style="margin-top:.4rem;" onclick="applyJob(' + x.id + ')">Postuler</button></div>').join('');
             populateCities();
         }
 
         function applyJob(id) {
             if (!isLoggedIn()) { toast('⚠️ Veuillez vous connecter', 'warning'); showSection('register'); return; }
             if (!currentUser.profileComplete) { toast('⚠️ Complétez votre profil', 'warning'); showSection('profile'); return; }
-            toast('✅ Candidature envoyée');
+            const j = cachedJobs.find(x => x.id == id);
+            if (j) toast('✅ Candidature envoyée pour : ' + j.title);
         }
 
         function populateCities() {
-            let s = document.getElementById('jobCity');
-            let cs = [...new Set(cachedJobs.map(j => j.city))];
+            const s = document.getElementById('jobCity');
+            if (!s) return;
+            const cs = [...new Set(cachedJobs.map(j => j.city))];
             s.innerHTML = '<option value="">Toutes villes</option>' + cs.map(c => '<option value="' + c + '">' + c.charAt(0).toUpperCase() + c.slice(1) + '</option>').join('');
         }
 
@@ -803,18 +747,18 @@
         }
 
         async function triggerVideoUpload() {
-            if (!isAdmin()) return toast('Accès réservé', 'warning');
-            let input = document.createElement('input');
+            if (!isAdmin()) { toast('⚠️ Accès réservé aux administrateurs', 'warning'); return; }
+            const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'video/*';
             input.onchange = async e => {
-                let file = e.target.files[0];
+                const file = e.target.files[0];
                 if (!file) return;
                 toast('⏳ Upload en cours...', 'warning');
-                let url = await uploadFileToStorage('videos', file);
+                const url = await uploadFileToStorage('videos', file);
                 if (!url) return;
-                let title = prompt('🎬 Titre de la vidéo:', file.name) || 'Vidéo';
-                let video = { id: Date.now(), title, dataUrl: url, fileType: file.type, cat: 'Emploi' };
+                const title = prompt('🎬 Titre de la vidéo:', file.name) || 'Vidéo';
+                const video = { id: Date.now(), title, dataUrl: url, fileType: file.type, cat: 'Emploi' };
                 await db.collection('videos').doc(String(video.id)).set(video);
                 cachedVideos.push(video);
                 renderVideos();
@@ -826,18 +770,18 @@
         }
 
         async function triggerPosterUpload() {
-            if (!isAdmin()) return toast('Accès réservé', 'warning');
-            let input = document.createElement('input');
+            if (!isAdmin()) { toast('⚠️ Accès réservé aux administrateurs', 'warning'); return; }
+            const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
             input.onchange = async e => {
-                let file = e.target.files[0];
+                const file = e.target.files[0];
                 if (!file) return;
                 toast('⏳ Upload...', 'warning');
-                let url = await uploadFileToStorage('posters', file);
+                const url = await uploadFileToStorage('posters', file);
                 if (!url) return;
-                let title = prompt('🖼️ Titre de l\'affiche:', file.name) || 'Affiche';
-                let poster = { id: Date.now(), title, dataUrl: url };
+                const title = prompt('🖼️ Titre de l\'affiche:', file.name) || 'Affiche';
+                const poster = { id: Date.now(), title, dataUrl: url };
                 await db.collection('posters').doc(String(poster.id)).set(poster);
                 cachedPosters.push(poster);
                 renderPosters();
@@ -849,37 +793,36 @@
         }
 
         async function renderVideos() {
-            let c = document.getElementById('videosList');
+            const c = document.getElementById('videosList');
             if (!cachedVideos.length) { c.innerHTML = '<p class="loading">Aucune vidéo disponible.</p>'; return; }
             c.innerHTML = cachedVideos.map(v => `<div class="card"><video src="${v.dataUrl}" controls style="width:100%;height:180px;object-fit:cover;border-radius:8px;"></video><h4>${v.title}</h4>${isAdmin() ? `<button class="btn btn-danger btn-sm" onclick="deleteVideo('${v.id}')">🗑️ Supprimer</button>` : ''}</div>`).join('');
         }
 
         async function renderPosters() {
-            let c = document.getElementById('postersList');
+            const c = document.getElementById('postersList');
             if (!cachedPosters.length) { c.innerHTML = '<p class="loading">Aucune affiche disponible.</p>'; return; }
             c.innerHTML = cachedPosters.map(p => `<div class="card"><img src="${p.dataUrl}" style="width:100%;height:150px;object-fit:cover;border-radius:8px;"><h4>${p.title}</h4>${isAdmin() ? `<button class="btn btn-danger btn-sm" onclick="deletePoster('${p.id}')">🗑️ Supprimer</button>` : ''}</div>`).join('');
         }
 
         function renderHomeVideos() {
-            let c = document.getElementById('homeVideosList');
+            const c = document.getElementById('homeVideosList');
             if (!cachedVideos.length) { c.innerHTML = '<p class="loading">Aucun média pour le moment.</p>'; return; }
             c.innerHTML = cachedVideos.slice(-3).reverse().map(v => `<div class="card"><div class="media-preview video"><i class="fas fa-play-circle"></i></div><h4>${v.title}</h4></div>`).join('');
         }
 
         function renderHomePosters() {
-            let c = document.getElementById('homePostersList');
+            const c = document.getElementById('homePostersList');
             if (!cachedPosters.length) { c.innerHTML = '<p class="loading">Aucune affiche pour le moment.</p>'; return; }
             c.innerHTML = cachedPosters.slice(-3).reverse().map(p => `<div class="card"><div class="media-preview"><i class="fas fa-image"></i></div><h4>${p.title}</h4></div>`).join('');
         }
 
-        // VOLUNTEERING
         function renderVolunteering() {
             const d = [
                 { org: 'Restos du Cœur', city: 'paris', task: 'Distribution alimentaire' },
                 { org: 'La Cimade', city: 'lyon', task: 'Accompagnement juridique' },
                 { org: 'Secours Populaire', city: 'marseille', task: 'Aide aux réfugiés' }
             ];
-            document.getElementById('volList').innerHTML = d.map(v => `<div class="job-card" style="border-left-color:var(--s)"><h4>${v.org}</h4><span class="badge badge-blue">📍 ${v.city}</span><p style="margin:.4rem 0;font-size:.85rem;">${v.task}</p><button class="btn btn-outline btn-sm" style="border-color:var(--s);color:var(--s)" onclick="volSign('${v.org}')">Devenir bénévole</button></div>`).join('');
+            document.getElementById('volList').innerHTML = d.map(v => '<div class="job-card" style="border-left-color:var(--s)"><h4>' + v.org + '</h4><span class="badge badge-blue">📍 ' + v.city + '</span><p style="margin:.4rem 0;font-size:.85rem;">' + v.task + '</p><button class="btn btn-outline btn-sm" style="border-color:var(--s);color:var(--s)" onclick="volSign(\'' + v.org + '\')">Devenir bénévole</button></div>').join('');
         }
 
         function volSign(o) {
@@ -887,19 +830,19 @@
             toast('✅ Inscription bénévole : ' + o);
         }
 
-        // ========== ARTICLES FUNCTIONS ==========
+        // ========== ARTICLES FUNCTIONS (WITH EDIT & IMAGES) ==========
         async function uploadArticleImage() {
             if (!isLoggedIn()) return toast('Connectez-vous', 'warning');
-            let input = document.createElement('input');
+            const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
             input.onchange = async e => {
-                let file = e.target.files[0];
+                const file = e.target.files[0];
                 if (!file) return;
                 toast('Upload image...', 'warning');
-                let url = await uploadFileToStorage('article_images', file);
+                const url = await uploadFileToStorage('article_images', file);
                 if (!url) return;
-                let ta = document.getElementById('articleContent');
+                const ta = document.getElementById('articleContent');
                 ta.value += `\n![image](${url})\n`;
                 toast('✅ Image ajoutée à l\'article');
             };
@@ -907,9 +850,9 @@
         }
 
         function wrapText(before, after) {
-            let ta = document.getElementById('articleContent');
-            let start = ta.selectionStart, end = ta.selectionEnd, text = ta.value;
-            let selected = text.substring(start, end);
+            const ta = document.getElementById('articleContent');
+            const start = ta.selectionStart, end = ta.selectionEnd, text = ta.value;
+            const selected = text.substring(start, end);
             ta.value = text.substring(0, start) + before + selected + after + text.substring(end);
             ta.focus();
         }
@@ -926,18 +869,19 @@
 
         function openArticleEditor(article = null) {
             document.getElementById('articleEditor').classList.remove('hidden');
+            const t = translations[currentLang];
             if (article) {
                 document.getElementById('articleTitle').value = article.title;
                 document.getElementById('articleContent').value = article.content;
                 document.getElementById('editArticleId').value = article.id;
-                document.getElementById('editorTitle').innerText = '✍️ Modifier l\'article';
-                document.getElementById('saveArticleBtn').innerHTML = '✏️ Modifier';
+                document.getElementById('editorTitle').innerText = t?.editTitle || '✍️ Modifier l\'article';
+                document.getElementById('saveArticleBtn').innerHTML = '✏️ ' + (t?.edit || 'Modifier');
             } else {
                 document.getElementById('articleTitle').value = '';
                 document.getElementById('articleContent').value = '';
                 document.getElementById('editArticleId').value = '';
-                document.getElementById('editorTitle').innerText = '✍️ Rédiger un article';
-                document.getElementById('saveArticleBtn').innerHTML = '📢 Publier';
+                document.getElementById('editorTitle').innerText = t?.newTitle || '✍️ Rédiger un article';
+                document.getElementById('saveArticleBtn').innerHTML = '📢 ' + (t?.publish || 'Publier');
             }
         }
 
@@ -948,12 +892,12 @@
 
         async function saveArticle() {
             if (!isLoggedIn()) return toast('Connectez-vous', 'warning');
-            let id = document.getElementById('editArticleId').value;
-            let title = document.getElementById('articleTitle').value.trim();
-            let content = document.getElementById('articleContent').value.trim();
+            const id = document.getElementById('editArticleId').value;
+            const title = document.getElementById('articleTitle').value.trim();
+            const content = document.getElementById('articleContent').value.trim();
             if (!title || !content) return toast('Titre et contenu requis', 'error');
             
-            let articleData = {
+            const articleData = {
                 title, content,
                 author: currentUser.email,
                 authorName: currentUser.name || currentUser.email,
@@ -962,11 +906,11 @@
             
             if (id) {
                 await db.collection('articles').doc(String(id)).update(articleData);
-                let index = cachedArticles.findIndex(a => a.id == id);
+                const index = cachedArticles.findIndex(a => a.id == id);
                 if (index !== -1) cachedArticles[index] = { ...cachedArticles[index], ...articleData };
                 toast('✅ Article modifié');
             } else {
-                let newId = Date.now();
+                const newId = Date.now();
                 articleData.id = newId;
                 await db.collection('articles').doc(String(newId)).set(articleData);
                 cachedArticles.unshift(articleData);
@@ -978,19 +922,19 @@
         }
 
         async function renderArticles() {
-            let container = document.getElementById('articlesList');
+            const container = document.getElementById('articlesList');
             if (!cachedArticles.length) {
                 container.innerHTML = '<p class="loading">Aucun article. Écrivez le premier !</p>';
                 return;
             }
-            let t = translations[currentLang];
+            const t = translations[currentLang];
             container.innerHTML = cachedArticles.map(a => `
                 <div class="job-card" style="border-left-color: var(--a);">
                     <h3>📄 ${escapeHtml(a.title)}</h3>
                     <small>✍️ ${escapeHtml(a.authorName)} - ${new Date(a.date).toLocaleDateString()}</small>
                     <div style="margin-top: 8px;">${simpleMarkdown(a.content.substring(0, 200))}${a.content.length > 200 ? '...' : ''}</div>
                     <div style="margin-top: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
-                        <button class="btn btn-outline btn-sm" onclick="viewFullArticle('${a.id}')">${t?.readMore || 'Lire plus'}</button>
+                        <button class="btn btn-outline btn-sm" onclick="viewFullArticle('${a.id}')">📖 ${t?.readMore || 'Lire plus'}</button>
                         ${(isAdmin() || currentUser?.email === a.author) ? `
                             <button class="btn btn-warning btn-sm" onclick='openArticleEditor(${JSON.stringify(a).replace(/'/g, "&#39;")})'>✏️ ${t?.edit || 'Modifier'}</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteArticle('${a.id}')">🗑️ ${t?.delete || 'Supprimer'}</button>
@@ -1001,7 +945,7 @@
         }
 
         function renderHomeArticles() {
-            let container = document.getElementById('homeArticlesList');
+            const container = document.getElementById('homeArticlesList');
             if (!cachedArticles.length) {
                 container.innerHTML = '<p class="loading">Aucun article récent.</p>';
                 return;
@@ -1016,9 +960,9 @@
         }
 
         function viewFullArticle(id) {
-            let article = cachedArticles.find(a => a.id == id);
+            const article = cachedArticles.find(a => a.id == id);
             if (!article) return;
-            let win = window.open();
+            const win = window.open();
             win.document.write(`
                 <html><head><title>${escapeHtml(article.title)}</title>
                 <style>body{font-family:sans-serif;padding:2rem;max-width:800px;margin:auto;line-height:1.6}</style>
@@ -1072,9 +1016,10 @@
 
         // ADMIN
         async function renderAdmin(tab) {
-            let c = document.getElementById('adminContent');
+            const c = document.getElementById('adminContent');
+            if (!c) return;
             if (tab === 'dashboard') {
-                let us = await db.collection('users').get();
+                const us = await db.collection('users').get();
                 c.innerHTML = '<div class="stat-grid">' + [
                     { l: 'Utilisateurs', n: us.size },
                     { l: 'Offres', n: cachedJobs.length },
@@ -1083,31 +1028,33 @@
                     { l: 'Articles', n: cachedArticles.length }
                 ].map(s => '<div class="card"><div class="stat-num">' + s.n + '</div><div>' + s.l + '</div></div>').join('') + '</div>';
             } else if (tab === 'users') {
-                let snap = await db.collection('users').get();
-                c.innerHTML = `<table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Nom</th><th>Email</th><th>Action</th></tr>${snap.docs.map(d => `<tr><td>${d.data().name || '-'}</td><td>${d.data().email}</td><td><button class="btn btn-danger btn-sm" onclick="delU('${d.id}')">🗑️</button></td></tr>`).join('')}</table>`;
+                const snap = await db.collection('users').get();
+                c.innerHTML = '<table><tr><th>Nom</th><th>Email</th><th>Action</th></tr>' + snap.docs.map(d => '<tr><td>' + (d.data().name || '-') + '</td><td>' + d.data().email + '</td><td><button class="btn btn-danger btn-sm" onclick="delU(\'' + d.id + '\')">🗑️</button></td></tr>').join('') + '</table>';
             } else if (tab === 'jobs-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addJ()" style="margin-bottom:.75rem;">+ Offre</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Ville</th><th>Action</th></tr>' + cachedJobs.map(j => `<tr><td>${j.title}${j.city}<button class="btn btn-danger btn-sm" onclick="delJ(${j.id})">🗑️</button>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addJ()" style="margin-bottom:.75rem;">+ Offre</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Ville</th><th>Action</th></tr>' + cachedJobs.map(j => '<tr><td>' + j.title + '｝<td>' + j.city + '｝<td><button class="btn btn-danger btn-sm" onclick="delJ(' + j.id + ')">🗑️</button>｝</tr>').join('') + '</table>';
             } else if (tab === 'videos-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerVideoUpload()" style="margin-bottom:.75rem;">+ Vidéo (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><table><th>Titre</th><th>Action</th></tr>' + cachedVideos.map(v => `<tr><td>${v.title} \n<button class="btn btn-danger btn-sm" onclick="deleteVideo('${v.id}')">🗑️</button>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerVideoUpload()" style="margin-bottom:.75rem;">+ Vidéo (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th></tr>' + cachedVideos.map(v => '<tr><td>' + v.title + '｝<td><button class="btn btn-danger btn-sm" onclick="deleteVideo(\'' + v.id + '\')">🗑️</button>｝</tr>').join('') + '</table>';
             } else if (tab === 'posters-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerPosterUpload()" style="margin-bottom:.75rem;">+ Affiche (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th></tr>' + cachedPosters.map(p => `<tr><td>${p.title} \n<button class="btn btn-danger btn-sm" onclick="deletePoster('${p.id}')">🗑️</button>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="triggerPosterUpload()" style="margin-bottom:.75rem;">+ Affiche (2GB max)</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Action</th><tr>' + cachedPosters.map(p => '<tr><td>' + p.title + '｝<td><button class="btn btn-danger btn-sm" onclick="deletePoster(\'' + p.id + '\')">🗑️</button>｝</tr>').join('') + '</table>';
             } else if (tab === 'articles-manage') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addFakeArticle()" style="margin-bottom:.75rem;">+ Article test</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr>' + cachedArticles.map(a => `<tr><td>${a.title}${a.author}<button class="btn btn-danger btn-sm" onclick="deleteArticle('${a.id}')">🗑️</button>`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addFakeArticle()" style="margin-bottom:.75rem;">+ Article test</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Titre</th><th>Auteur</th><th>Action</th></tr>' + cachedArticles.map(a => '<tr><td>' + a.title + '｝<td>' + a.author + '｝<td><button class="btn btn-danger btn-sm" onclick="deleteArticle(\'' + a.id + '\')">🗑️</button>｝</tr>').join('') + '</table>';
             } else if (tab === 'admins') {
-                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addA()" style="margin-bottom:.75rem;">+ Admin</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Email</th><th>Action</th></tr>' + cachedAdmins.map(a => `<tr><td>${a}${a !== 'mosab649@gmail.com' ? '<button class="btn btn-danger btn-sm" onclick="remA(\'' + a + '\')">🗑️</button>' : '<span class="badge badge-blue">Principal</span>'}`).join('') + '</table>';
+                c.innerHTML = '<button class="btn btn-primary btn-sm" onclick="addA()" style="margin-bottom:.75rem;">+ Admin</button><table border="1" style="width:100%;border-collapse:collapse;"><tr><th>Email</th><th>Action</th></tr>' + cachedAdmins.map(a => '<tr><td>' + a + '｝<td>' + (a !== 'mosab649@gmail.com' ? '<button class="btn btn-danger btn-sm" onclick="remA(\'' + a + '\')">🗑️</button>' : '<span class="badge badge-blue">Principal</span>') + '｝</tr>').join('') + '</table>';
             } else if (tab === 'settings') {
-                let doc = await db.collection('settings').doc('logo').get();
-                let logoUrl = doc.exists ? doc.data().url : '';
+                const doc = await db.collection('settings').doc('logo').get();
+                const logoUrl = doc.exists ? doc.data().url : '';
                 c.innerHTML = '<h3>🖼️ Logo</h3>' + (logoUrl ? '<img src="' + logoUrl + '" style="width:100px;height:100px;object-fit:contain;border:2px solid var(--bdr);border-radius:8px;margin-bottom:.5rem;">' : '<div style="width:100px;height:100px;border:2px dashed var(--bdr);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:.5rem;">Aucun logo</div>') + '<br><button class="btn btn-primary btn-sm" onclick="uploadLogo()">📁 Changer le logo</button>';
             }
         }
 
         async function addJ() {
-            let t = prompt('Titre :'); if (!t) return;
-            let ci = prompt('Ville :'); if (!ci) return;
-            let k = prompt('Contrat :') || 'CDI';
-            let d = prompt('Description :') || '';
-            let job = { id: Date.now(), title: t, city: ci.toLowerCase(), contract: k, desc: d, date: new Date().toISOString().split('T')[0] };
+            const t = prompt('Titre :');
+            if (!t) return;
+            const ci = prompt('Ville :');
+            if (!ci) return;
+            const k = prompt('Contrat :') || 'CDI';
+            const d = prompt('Description :') || '';
+            const job = { id: Date.now(), title: t, city: ci.toLowerCase(), contract: k, desc: d, date: new Date().toISOString().split('T')[0] };
             await db.collection('jobs').doc(String(job.id)).set(job);
             cachedJobs.push(job);
             renderAdmin('jobs-manage');
@@ -1131,7 +1078,8 @@
         }
 
         async function addA() {
-            let e = prompt('Email admin :'); if (!e) return;
+            const e = prompt('Email admin :');
+            if (!e) return;
             if (cachedAdmins.includes(e)) { toast('⚠️ Déjà admin', 'warning'); return; }
             await db.collection('admins').doc(e).set({ email: e });
             cachedAdmins.push(e);
@@ -1148,7 +1096,7 @@
         }
 
         async function addFakeArticle() {
-            let fake = { id: Date.now(), title: 'Article de démonstration', content: 'Ceci est un **article** test avec du *markdown*.', author: 'admin@test.com', authorName: 'Admin Test', date: new Date().toISOString() };
+            const fake = { id: Date.now(), title: 'Article de démonstration', content: 'Ceci est un **article** test avec du *markdown*.', author: 'admin@test.com', authorName: 'Admin Test', date: new Date().toISOString() };
             await db.collection('articles').doc(String(fake.id)).set(fake);
             cachedArticles.unshift(fake);
             renderArticles();
@@ -1159,15 +1107,15 @@
 
         async function uploadLogo() {
             if (!isAdmin()) return;
-            let input = document.createElement('input');
+            const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
             input.onchange = async e => {
-                let file = e.target.files[0];
+                const file = e.target.files[0];
                 if (!file) return;
-                let ref = storage.ref('settings/logo');
+                const ref = storage.ref('settings/logo');
                 await ref.put(file);
-                let url = await ref.getDownloadURL();
+                const url = await ref.getDownloadURL();
                 await db.collection('settings').doc('logo').set({ url });
                 updateLogoDisplay();
                 toast('✅ Logo mis à jour !');
@@ -1177,30 +1125,22 @@
         }
 
         async function updateLogoDisplay() {
-            let doc = await db.collection('settings').doc('logo').get();
-            let logoUrl = doc.exists ? doc.data().url : '';
-            let navLogo = document.getElementById('navLogo');
-            let navIcon = document.getElementById('navIcon');
-            let footerLogo = document.getElementById('footerLogo');
-            let sidebarLogo = document.getElementById('sidebarLogo');
-            if (logoUrl) {
-                if (navLogo) { navLogo.src = logoUrl; navLogo.style.display = 'inline-block'; }
+            const doc = await db.collection('settings').doc('logo').get();
+            const logoData = doc.exists ? doc.data().url : '';
+            const navLogo = document.getElementById('navLogo');
+            const navIcon = document.getElementById('navIcon');
+            const footerLogo = document.getElementById('footerLogo');
+            if (logoData) {
+                if (navLogo) { navLogo.src = logoData; navLogo.style.display = 'inline-block'; }
                 if (navIcon) navIcon.style.display = 'none';
-                if (footerLogo) { footerLogo.src = logoUrl; footerLogo.style.display = 'block'; }
-                if (sidebarLogo) { sidebarLogo.src = logoUrl; sidebarLogo.style.display = 'block'; }
+                if (footerLogo) { footerLogo.src = logoData; footerLogo.style.display = 'block'; }
             } else {
                 if (navLogo) navLogo.style.display = 'none';
                 if (navIcon) navIcon.style.display = 'inline-block';
                 if (footerLogo) footerLogo.style.display = 'none';
-                if (sidebarLogo) sidebarLogo.style.display = 'none';
             }
         }
 
-        // SIDEBAR
-        function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('overlay').classList.add('active'); }
-        function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
-
-        // RENDER ALL
         function renderAll() {
             renderJobs();
             renderVideos();
@@ -1214,44 +1154,39 @@
 
         // INIT
         async function init() {
-            // Load jobs
-            let jobsSnap = await db.collection('jobs').get();
+            // Load data
+            const jobsSnap = await db.collection('jobs').get();
             cachedJobs = jobsSnap.docs.map(d => ({ id: d.id, ...d.data() }));
             if (cachedJobs.length === 0) {
-                let dj = [
+                const dj = [
                     { id: 1, title: 'Aide Cuisinier', city: 'paris', contract: 'CDI', desc: 'Restaurant recherche aide cuisinier.', date: '2024-01-15' },
                     { id: 2, title: 'Agent Entretien', city: 'lyon', contract: 'CDD', desc: 'Nettoyage bureaux.', date: '2024-02-01' },
                     { id: 3, title: 'Manutentionnaire', city: 'marseille', contract: 'Intérim', desc: 'Entrepôt logistique.', date: '2024-02-15' },
                     { id: 4, title: 'Aide à domicile', city: 'paris', contract: 'CDI', desc: 'Aide aux personnes âgées.', date: '2024-03-01' }
                 ];
-                for (let j of dj) { await db.collection('jobs').doc(String(j.id)).set(j); }
+                for (const j of dj) { await db.collection('jobs').doc(String(j.id)).set(j); }
                 cachedJobs = dj;
             }
 
-            // Load videos
-            let vSnap = await db.collection('videos').get();
+            const vSnap = await db.collection('videos').get();
             cachedVideos = vSnap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-            // Load posters
-            let pSnap = await db.collection('posters').get();
+            const pSnap = await db.collection('posters').get();
             cachedPosters = pSnap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-            // Load articles
-            let aSnap = await db.collection('articles').orderBy('date', 'desc').get();
+            const aSnap = await db.collection('articles').orderBy('date', 'desc').get();
             cachedArticles = aSnap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-            // Load admins
-            let admSnap = await db.collection('admins').get();
+            const admSnap = await db.collection('admins').get();
             cachedAdmins = admSnap.docs.map(d => d.id);
             if (cachedAdmins.length === 0 || !cachedAdmins.includes('mosab649@gmail.com')) {
                 await db.collection('admins').doc('mosab649@gmail.com').set({ email: 'mosab649@gmail.com' });
                 cachedAdmins = ['mosab649@gmail.com'];
             }
 
-            // Auth state
             auth.onAuthStateChanged(async user => {
                 if (user) {
-                    let doc = await db.collection('users').doc(user.uid).get();
+                    const doc = await db.collection('users').doc(user.uid).get();
                     currentUser = doc.exists ? doc.data() : { id: user.uid, name: user.email, email: user.email };
                 } else {
                     currentUser = null;
@@ -1265,61 +1200,50 @@
             await updateLogoDisplay();
             renderAll();
 
-            // Event listeners
-            document.getElementById('langSwitch').addEventListener('change', (e) => { currentLang = e.target.value; updateUILanguage(); });
-            document.getElementById('menuToggle').addEventListener('click', openSidebar);
-            document.getElementById('overlay').addEventListener('click', closeSidebar);
+            // Events
+            document.getElementById('langSwitch').addEventListener('change', function(e) {
+                currentLang = e.target.value;
+                updateUILanguage();
+                renderArticles(); // Re-render articles with new language
+            });
+            document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navMenu').classList.toggle('open'));
             document.getElementById('btnLogin').addEventListener('click', showLogin);
             document.getElementById('btnRegister').addEventListener('click', () => showSection('register'));
             document.getElementById('btnLogout').addEventListener('click', logout);
             document.getElementById('uploadImageBtn').addEventListener('click', uploadArticleImage);
-            document.getElementById('formRegister').addEventListener('submit', (e) => {
+            document.getElementById('formRegister').addEventListener('submit', function(e) {
                 e.preventDefault();
-                registerEmail(
-                    document.getElementById('regName').value,
-                    document.getElementById('regEmail').value,
-                    document.getElementById('regPass').value,
-                    document.getElementById('regPass2').value
-                );
+                registerEmail(document.getElementById('regName').value, document.getElementById('regEmail').value, document.getElementById('regPass').value, document.getElementById('regPass2').value);
             });
-            document.getElementById('formProfile').addEventListener('submit', (e) => {
+            document.getElementById('formProfile').addEventListener('submit', function(e) {
                 e.preventDefault();
-                saveProfile(
-                    document.getElementById('profStatus').value,
-                    document.getElementById('profCity').value,
-                    document.getElementById('profLegal').value
-                );
+                saveProfile(document.getElementById('profStatus').value, document.getElementById('profCity').value, document.getElementById('profLegal').value);
             });
             document.getElementById('jobSearch').addEventListener('input', renderJobs);
             document.getElementById('jobCity').addEventListener('change', renderJobs);
             document.getElementById('jobContract').addEventListener('change', renderJobs);
 
-            // Navigation links (sidebar only)
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.addEventListener('click', (e) => {
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.addEventListener('click', function(e) {
                     e.preventDefault();
-                    let href = link.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        let id = href.substring(1);
-                        if (id === 'admin' && !isAdmin()) { toast('⚠️ Accès réservé', 'warning'); return; }
-                        showSection(id);
-                        if (id === 'admin') renderAdmin('dashboard');
-                        if (id === 'forum-articles') renderArticles();
-                    }
+                    const id = this.getAttribute('href').replace('#', '');
+                    if (id === 'admin' && !isAdmin()) { toast('⚠️ Accès réservé aux administrateurs', 'warning'); return; }
+                    showSection(id);
+                    if (id === 'admin') renderAdmin('dashboard');
+                    if (id === 'forum-articles') renderArticles();
                 });
             });
 
-            // Admin tabs
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    renderAdmin(tab.getAttribute('data-tab'));
+            document.querySelectorAll('.admin-tab').forEach(t => {
+                t.addEventListener('click', function() {
+                    document.querySelectorAll('.admin-tab').forEach(x => x.classList.remove('active'));
+                    this.classList.add('active');
+                    renderAdmin(this.getAttribute('data-tab'));
                 });
             });
 
             updateUILanguage();
-            console.log('✅ Application prête - Firebase + Articles (Créer/Modifier/Supprimer) + Images + Vidéos + Logo');
+            console.log('✅ Application prête - Firebase + Articles (Créer/Modifier/Supprimer/Images) + Vidéos + Logo');
             console.log('👤 Admin par défaut: mosab649@gmail.com');
         }
 
